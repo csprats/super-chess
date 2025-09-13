@@ -19,6 +19,17 @@ const draw = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   board.drawTable(ctx, window.innerHeight / 8, window.innerWidth / 4)
 
+  if (board.kings.white.lives === 0) { 
+    alert('Black win! Giving Une more live...')
+    board.kings.white.lives++
+    controler1.document.getElementById('lives').textContent = `Lives: ${board.kings.white.lives}`
+  }
+  if (board.kings.black.lives === 0) {
+    alert('White win! Giving Une more live...')
+    board.kings.black.lives++
+    controler2.document.getElementById('lives').textContent = `Lives: ${board.kings.black.lives}`
+  }
+
   requestAnimationFrame(draw)
 }
 
@@ -45,7 +56,16 @@ controler1.addEventListener('DOMContentLoaded', () => {
     turnBlack = true
   })
   controler1.document.getElementById('ray-h').addEventListener('click', () => {
-    board.ray(1)
+    if (turnWhite) board.rayH(2)
+    turnWhite = false
+    turnBlack = true
+    controler2.document.getElementById('lives').textContent = `Lives: ${board.kings.black.lives}`
+  })
+  controler1.document.getElementById('ray-v').addEventListener('click', () => {
+    if (turnWhite) board.rayV(2)
+    turnWhite = false
+    turnBlack = true
+    controler2.document.getElementById('lives').textContent = `Lives: ${board.kings.black.lives}`
   })
 })
 controler2.addEventListener('DOMContentLoaded', () => {
@@ -69,6 +89,18 @@ controler2.addEventListener('DOMContentLoaded', () => {
     if (turnBlack) board.movePieces(0, 0, 1, 0)
     turnBlack = false
     turnWhite = true
+  })
+  controler2.document.getElementById('ray-h').addEventListener('click', () => {
+    if (turnBlack) board.rayH(1)
+    turnBlack = false
+    turnWhite = true
+    controler1.document.getElementById('lives').textContent = `Lives: ${board.kings.white.lives}`
+  })
+  controler2.document.getElementById('ray-v').addEventListener('click', () => {
+    if (turnBlack) board.rayV(1)
+    turnBlack = false
+    turnWhite = true
+    controler1.document.getElementById('lives').textContent = `Lives: ${board.kings.white.lives}`
   })
 })
 

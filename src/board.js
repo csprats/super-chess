@@ -70,18 +70,23 @@ export class Board {
             this.pieces[this.kings.black.y + by][this.kings.black.x + bx] = 1
             this.kings.black.x = this.kings.black.x + bx
             this.kings.black.y = this.kings.black.y + by
-        } else {
-            console.log('Cant move')
         }
     }
-    ray(n) {
-        for(let y = 0; y < 8; y += 8) {
-            if (this.pieces[y][this.kings.black.x] = 1 && n === 1) {
-                this.kings.white.lives--
-                console.log('Ha dado en negro')
-            } else if (this.pieces[y][this.white.black.x] = 2 && n === 2) {
+    rayH(n) {
+        for(let x = 0; x < 8; x++) {
+            if (this.pieces[this.kings.white.y][x] === 1 && n === 2) {
                 this.kings.black.lives--
-                console.log('Ha dado en blaco')
+            } else if (this.pieces[this.kings.black.y][x] === 2 && n === 1) {
+                this.kings.white.lives--
+            }
+        }
+    }
+    rayV(n) {
+        for(let y = 0; y < 8; y++) {
+            if (this.pieces[y][this.kings.white.x] === 1 && n === 2) {
+                this.kings.black.lives--
+            } else if (this.pieces[y][this.kings.black.x] === 2 && n === 1) {
+                this.kings.white.lives--
             }
         }
     }
